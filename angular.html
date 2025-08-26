@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Angular jegyzetem</title>
+  </head>
+  <body>
+    <div>
+    Utasítások:
+        Angular telepitése: Terminalban futtassuk a "npm install -g @angular/cli"
+        Angular verzió ellenörzése: "ng v"
+            Jelenlegi verzió: 
+                Angular CLI: 20.0.2
+                Node: 22.16.0
+                Package Manager: npm 10.9.2
+        
+        Angular projektet az "ng new projekted neve --no-standalone " utasításal hozhatunk létre.
+                minden kérdésre yes vagy enter
+                a --no-standalone utasítással minden modul látható és részletesebb a component lista.
+        
+        Angular component létrehozása a következő utasítással történik : "ng g c Componented-neve / ng generate conponent Componented-neve"
+        ahoz hogy componentet létre hozzunk be kell lépnünk a projekt mappába. Kérdésre ismét Yes/y Google megosztás.
+
+        Angular weboldal futtatása az "ng serve" parancsal lehetséges, a weboldal a "http://localhost:4200/" címen lesz elérhető.
+
+        Ha megvannak a componenteink az útvonalakat az "app-routing-module.ts" fájlba tudjuk beálítani 
+            router tömbbe kell az összes elérési utat be állítanunk pl:
+                {path:"teszt", component:Tesztkomponens},
+            meg kell adnunk alap eseteket lehet üres vagy nem létező komponens.
+                {path:"" , redirectTo:"/teszt",pathMatch:"full"}, -redirectTo-nál ha nincs konkrét elérési út (pl ha facebook.com/profile helyett csak facebook.com szerepel) hova vezessen az oldal ami általában egy kezdőlap szokott lenni.-
+                {path:"**", component:Hiba},- Bármi más vagyis nem létező elérési út hova ugorjon pl egy hiba üzenetet tartalmazó oldal (Hiba 404! Az oldal nem található!)-
+            
+        Az app.html tartalma a <router-outlet/> kivételével törölhető. Ez lesz a navigációs sávunk helye. Ez minden komponensen látszódni fog!
+        
+      </p>
+    </div>
+  </body>
+</html>
