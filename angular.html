@@ -7,7 +7,7 @@
   </head>
   <body>
     <div>
-    Utasítások:
+    Utasítások Angular keretrendszer használatához, egészen a szerver indításáig:
         Angular telepitése: Terminalban futtassuk a "npm install -g @angular/cli"
         Angular verzió ellenörzése: "ng v"
             Jelenlegi verzió: 
@@ -24,6 +24,10 @@
 
         Angular weboldal futtatása az "ng serve" parancsal lehetséges, a weboldal a "http://localhost:4200/" címen lesz elérhető.
 
+====================================================================================================================================================================================================================================================
+Ezeket minden esetben hivatkozzuk ne ütközzünk problémákba.
+
+"Routing": 
         Ha megvannak a componenteink az útvonalakat az "app-routing-module.ts" fájlba tudjuk beálítani 
             router tömbbe kell az összes elérési utat be állítanunk pl:
                 {path:"teszt", component:Tesztkomponens},
@@ -32,10 +36,179 @@
                 {path:"**", component:Hiba},- Bármi más vagyis nem létező elérési út hova ugorjon pl egy hiba üzenetet tartalmazó oldal (Hiba 404! Az oldal nem található!)-
             
         Az app.html tartalma a <router-outlet/> kivételével törölhető. Ez lesz a navigációs sávunk helye. Ez minden komponensen látszódni fog!
-          :)
+
+Formok hozzáadása: 
+        Alap esetben nem elérhető az ngModel direktíva, ezért importálni kell a FormsModule-t az app.module.ts fájlba.
+          import { FormsModule } from '@angular/forms';
+          @NgModule({
+            declarations: [
+              AppComponent
+            ],
+            imports: [
+              BrowserModule,
+              AppRoutingModule,
+              FormsModule
+            ],
+          })
+
+Bootstrap importálása:
+          npm install bootstrap (ezzel csak a projekt dist mappájába kerülnek a fájlok)
+          Következő lépésben megkeressük az angular.json fájlt.
+          A styles tömbhöz hozzáadjuk a következőt:
+            "./node_modules/bootstrap/dist/css/bootstrap.css"
+=====================================================================================================================================================================================================================================================
+Data binding (Adatkötés):
+
+        Interpoláció-egyszerű hivatkozás:A hivatkozás szinbóluma:{{}}
+          html kódban:
+          {{valtozoneve}} 
+          Ts kódban: 
+          export class komponensneve{
+            valtozoneve:string = "Szeretem a programozást!";
+          } 
         
+        Property binding- Tulajdonság hivatkozás
+          Ts kódban:
+            export class komponensneve{
+              kepUtvonal:string= "https://angular.io"
+              kepforras:string = "https://angular.io/assets/images/logos/angular/angular.png";
+              kepCel:string = "_blank";
+              kepSzelesseg:number = 200;
+              kepCimke:string = "Angular logo";
+              kepAlternativSzoveg:string = "Angular logo oldal";
+          }
+          html kódban:
+          <a [href]="kepUtvonal" [target]="kepCel">
+            <img [src]="kepforras" [alt]="kepAlternativSzoveg" [title]="kepCimke" [width]="kepSzelesseg">
+          </a>
+
+        Event binding-Esemény hivatkozás
+
+        html kódban: 
+          <button type="button" (click)="uzenet()">Köszöntés</button>
+
+        Ts kódban:
+        export class komponensneve{
+          uzenet(){
+            alert("Üdvözöljük az oldalamon!");
+          }
+        }
+
+        Two way binding-Kétirányú adatközlés
+
+        html kódban:
+          <label for="aOldal">Az a oldal mérete:</label>
+          <input type="number" id="aOldal" [(ngModel)]="aOldal" />
+          <p>A négyzet oldalának mérete:{{aOldal}}</p>
+          <p>A négyzet területe:{{aOldal * aOldal}}</p>
+          <p>A négyzet kerülete:{{4 * aOldal}}</p>
+        Ts kódban:
+        export class komponensneve{
+          aOldal:number = 0;
+        }
+
+        ================================================================================================================================================================================================================================================
+        Nav bar linkelések:
+
+        pl.: 
+        <nav>
+          <ul>
+            <li><a routerLink="/teszt">Teszt</a></li> RóuterLink-el hivatkozunk a komponensre
+          </ul>
+        </nav>
+        =================================================================================================================================================================================================================================================
+
+        Tömbök kezelése: Egyszerű példa rá ts kódban és html ben!
+        
+        Első elem kiiratása: {{tomb[0]}}
+
+        összes elem kiiratása: ts kódja egyszerű tömb!
+        <ul>
+          <li *ngFor="let elem of tomb">{{elem}}</li>
+        </ul>
+        Minden fájlt menteni kell ha esetleg nem működne vagyis megjelenik de eltűnik!
+
+        ==================================================================================================================================================================================================================================================
+
+        objektumok kezelése: Egyszerű példa rá ts kódban és html ben!
+        
+        ts kódban:
+        export class komponensneve{
+          objektum:any = {
+            nev: "Angular",
+            tipus: "Framework",
+            ev: 2010
+          };
+          
+        }
+        export interface Objektum {
+          nev: string;
+          tipus: string;
+          ev: number;
+        }
+        html kódban:
+        <div>
+          <p>Az objektum neve: {{objektum.nev}}</p>
+          <p>Az objektum típusa: {{objektum.tipus}}</p>
+          <p>Az objektum éve: {{objektum.ev}}</p>
+        </div>
+
+        ===================================================================================================================================================================================================================================================
+
+        objektum tömb kezelése: Egyszerű példa rá ts kódban és html ben!
+
+        ts kódban:
+        export class komponensneve{
+          objektumTomb: Objektum[] = [
+            { nev: "Angular", tipus: "Framework", ev: 2010 },
+            { nev: "React", tipus: "Library", ev: 2013 },
+            { nev: "Vue", tipus: "Framework", ev: 2014 }
+          ];
+        }
+          export interface Objektum {
+            nev: string;
+            tipus: string;
+            ev: number;
+        }
+        html kódban:
+        <div *ngFor="let obj of objektumTomb">
+          <p>Az objektum neve: {{obj.nev}}</p>
+          <p>Az objektum típusa: {{obj.tipus}}</p>
+          <p>Az objektum éve: {{obj.ev}}</p>
+        </div>
+
+          táblázat:
+          <table>
+            <tr>
+              <th>Név</th>
+              <th>Típus</th>
+              <th>Év</th>
+            </tr>
+            <tr *ngFor="let obj of objektumTomb">
+              <td>{{obj.nev}}</td>
+              <td>{{obj.tipus}}</td>
+              <td>{{obj.ev}}</td>
+            </tr>
+          </table>
+          Az angular rendszer alergiás az invalid kódhasználatra a boottrapel együtt a fenti táblázatot így kell megírni:
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Név</th>
+                <th>Típus</th>
+                <th>Év</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let obj of objektumTomb">
+                <td>{{obj.nev}}</td>
+                <td>{{obj.tipus}}</td>
+                <td>{{obj.ev}}</td>
+              </tr>
+            </tbody>
+          </table>
+        ===================================================================================================================================================================================================================================================
       </p>
     </div>
   </body>
 </html>
-
