@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Node js Server</title>
+  </head>
+  <body>
+    <div>
+      <h1>A basic szerver készítéséhez szükséges lépések:</h1>
+      Első ként be kell lépni a file könyvtárába a terminalba! const http
+      =require('http'); http.createServer(function (req, res){
+      req.writeHead(200,{'Content-Type': 'text/plain'}); res.end("Hello World");
+      }).listen(8080); Összetettebb szerver készítése: var http=
+      require("http"); //beépített HTML modul importálása const host name=
+      "127.0.0.1"; //A szerver IP címének beálitása (Localhost) const port=
+      3000; //A szerver portja ahol elérhető lesz (számként jobb megadni, de ha
+      string az se baj ) //Szerver létrehozása arrow functionnal const server =
+      http.createServer((req,res)=>{ res.statusCode=200;//státuszkód megadása
+      szerver felé, 200= minden rendben!
+      res.setHeader("Content-Type","text/plain");//Tartalom típusának beálítása
+      res.end("Szeretem a NodeJS");//üzenet átadás az oldalra és kapcsolat
+      lezárás. }); //Szerver felügyelet a megadott portpn, host néven indításkor
+      vissza jelez a konzol felületre, a szerver címével.
+      server.listen(port,hostname,()=>{ console.log(`A szerverünk fut a
+      http://${hostname}:${port} címen!`) })
+    </div>
+  </body>
+</html>
